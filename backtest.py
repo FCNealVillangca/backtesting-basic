@@ -15,7 +15,7 @@ class TestStrategy(Strategy):
     def next(self):
         current_price = self.data.Close[-1]
         current_spread = self.data.Spread[-1]
-        current_signal = self.data.Signal[-1]
+        current_entry = self.data.Entry[-1]
 
         bid_price = current_price - (current_spread * 0.001 / 2)
         ask_price = current_price + (current_spread * 0.001 / 2)
@@ -35,9 +35,9 @@ class TestStrategy(Strategy):
                     self.trades[0].close()
                 elif ask_price >= current_entry_sl:
                     self.trades[0].close()
-        if current_signal == 1:
+        if current_entry == 1:
             self.buy(limit=ask_price)
-        elif current_signal == -1:
+        elif current_entry == -1:
             self.sell(limit=bid_price)
 
 
